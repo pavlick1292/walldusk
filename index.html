@@ -1,0 +1,393 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walldusk — обои для рабочего стола по обычной фразе</title>
+<meta name="description" content="Walldusk рисует обои 4K на вашей видеокарте: 300 готовых сюжетов в 67 наборах тем, свой промпт, подбор модели под видеокарту. 25 обоев бесплатно.">
+<meta name="keywords" content="обои, генератор обоев, нейросеть, wallpaper, 4K, обои на рабочий стол">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Walldusk — генератор обоев 4K">
+<meta property="og:description" content="300 готовых сюжетов, свой промпт, 4K. 25 обоев бесплатно.">
+<meta property="og:image" content="walldusk-512.png">
+<link rel="icon" href="walldusk-512.png">
+<style>
+  :root{
+    --bg:#0d0d12; --bg2:#12121a; --card:#191922; --card2:#20202b;
+    --line:#33333f; --fg:#ececf4; --sub:#a2a2b8; --dim:#7b7b92;
+    --accent:#8b7bff; --accent2:#b7a9ff; --ok:#5ad19b;
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--fg);
+       font:16px/1.65 "Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+       -webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  a{color:var(--accent2);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+  /* header */
+  .top{position:sticky;top:0;z-index:10;background:rgba(13,13,18,.86);
+       backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .top .wrap{display:flex;align-items:center;gap:14px;height:64px}
+  .top img{width:32px;height:32px;border-radius:8px}
+  .top b{font-size:18px;letter-spacing:.3px}
+  .nav{margin-left:auto;display:flex;gap:18px;font-size:14px;color:var(--sub)}
+  .nav a{color:var(--sub)}
+  .nav a:hover{color:var(--fg);text-decoration:none}
+
+  /* hero */
+  .hero{padding:64px 0 28px;text-align:center;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:-30% 20% auto;height:520px;
+    background:radial-gradient(ellipse at center,rgba(139,123,255,.22),transparent 65%);
+    pointer-events:none}
+  .hero img.logo{width:104px;height:104px;border-radius:24px;margin:0 auto 20px;
+    box-shadow:0 14px 44px rgba(0,0,0,.55);position:relative}
+  h1{margin:0 0 10px;font-size:46px;line-height:1.1;letter-spacing:.6px}
+  h1 span{color:var(--accent2)}
+  .tag{color:var(--sub);font-size:19px;max-width:660px;margin:0 auto}
+  .buttons{margin:28px 0 10px}
+  .btn{display:inline-block;margin:0 6px;padding:14px 28px;border-radius:13px;
+       background:linear-gradient(180deg,var(--accent),#7566e6);color:#fff;
+       font-weight:600;border:1px solid #9d8fff;box-shadow:0 8px 24px rgba(112,96,230,.35)}
+  .btn:hover{text-decoration:none;filter:brightness(1.07)}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--fg);box-shadow:none}
+  .badges{color:var(--dim);font-size:14px;margin-top:14px}
+  .badges span{margin:0 8px;white-space:nowrap}
+
+  /* sections */
+  section{padding:44px 0;scroll-margin-top:76px}
+  h2{font-size:29px;margin:0 0 18px;letter-spacing:.2px}
+  h2 small{display:block;font-size:15px;color:var(--sub);font-weight:400;margin-top:6px;
+    letter-spacing:0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+        padding:20px 22px}
+  .card h3{margin:0 0 10px;font-size:18px;color:var(--accent2)}
+  .card p{margin:0 0 8px}
+  .card p:last-child{margin-bottom:0}
+  ul{margin:8px 0 0;padding-left:20px}
+  li{margin:5px 0}
+  .small{color:var(--sub);font-size:14.5px}
+  .dim{color:var(--dim);font-size:13.5px}
+
+  /* gallery */
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .gallery img{width:100%;border-radius:12px;border:1px solid var(--line);
+    transition:transform .18s ease}
+  .gallery img:hover{transform:translateY(-3px)}
+  .masonry{columns:4;column-gap:12px}
+  .masonry figure{break-inside:avoid;margin:0 0 14px}
+  .masonry img{width:100%;border-radius:12px;border:1px solid var(--line);
+    transition:transform .18s ease}
+  .masonry img:hover{transform:translateY(-3px)}
+  .masonry figcaption{color:var(--dim);font-size:12.5px;margin-top:6px;line-height:1.35}
+  .phones{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:620px;margin-top:14px}
+  .phones img{border-radius:14px;border:1px solid var(--line)}
+  .cap{color:var(--dim);font-size:13px;margin-top:8px}
+
+  /* screenshots */
+  .shots{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .shots figure{margin:0}
+  .shots img{width:100%;border-radius:12px;border:1px solid var(--line)}
+  .shots figcaption{color:var(--dim);font-size:13px;margin-top:7px}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:s}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+        padding:20px;position:relative}
+  .step::before{counter-increment:s;content:counter(s);position:absolute;top:-14px;left:20px;
+    width:28px;height:28px;border-radius:9px;background:var(--accent);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px}
+  .step p{margin:0;color:var(--sub);font-size:15px}
+  .step b{color:var(--fg)}
+
+  /* price */
+  .price{background:linear-gradient(180deg,#1d1b2e,#191922);border:1px solid #4b41a0}
+  .price .sum{font-size:38px;font-weight:700;margin:6px 0 2px}
+  .price .sum small{font-size:16px;color:var(--sub);font-weight:400}
+  .tick{color:var(--ok)}
+
+  /* faq */
+  details{background:var(--card);border:1px solid var(--line);border-radius:12px;
+          padding:14px 18px;margin:10px 0}
+  details summary{cursor:pointer;font-weight:600;outline:none}
+  details p{color:var(--sub);margin:10px 0 0}
+
+  footer{margin-top:26px;padding:30px 0 46px;border-top:1px solid var(--line);
+         color:var(--dim);font-size:14px}
+  footer a{color:var(--sub)}
+
+  @media (max-width:860px){
+    h1{font-size:34px}
+    .grid3,.steps,.gallery{grid-template-columns:1fr 1fr}
+    .nav{display:none}
+    .masonry{columns:3}
+  }
+  @media (max-width:620px){
+    .grid2,.grid3,.steps,.gallery,.shots,.phones{grid-template-columns:1fr}
+    .hero{padding:40px 0 16px}
+    .masonry{columns:2}
+  }
+</style>
+</head>
+<body>
+
+<div class="top"><div class="wrap">
+  <img src="walldusk-512.png" alt="">
+  <b>Walldusk</b>
+  <nav class="nav">
+    <a href="#gallery">Примеры</a>
+    <a href="#shots">Скриншоты</a>
+    <a href="#features">Возможности</a>
+    <a href="#req">Требования</a>
+    <a href="#buy">Купить</a>
+  </nav>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <img class="logo" src="walldusk-512.png" alt="Walldusk">
+  <h1>Walldusk — обои <span>по обычной фразе</span></h1>
+  <p class="tag">Напишите «ночной город в дождь, неон» или «горы на рассвете, туман» —
+     программа нарисует обои на вашей видеокарте и увеличит их до 4K.</p>
+
+  <div class="buttons">
+    <!-- ЗАМЕНИТЬ на настоящую ссылку: GitHub Releases, папка на хостинге и т.п. -->
+    <a class="btn" href="Walldusk-1.3-setup.exe">Скачать для Windows</a>
+    <a class="btn ghost" href="#buy">Купить ключ</a>
+  </div>
+  <p class="badges">
+    <span>Windows 10 / 11, 64 бита</span> · <span>установщик 9,8 МБ</span> ·
+    <span>25 обоев бесплатно</span> · <span>русский интерфейс</span>
+  </p>
+</div></header>
+
+<section id="about"><div class="wrap">
+  <div class="grid2">
+    <div class="card">
+      <h3>Что это</h3>
+      <p>Walldusk — программа для Windows, которая делает обои для рабочего стола и телефона.
+         Внутри 67 наборов тем и 300 готовых сюжетов с картинками-подсказками: природа, города,
+         космос, аниме, мультфильмы, тёмные темы, абстракция.</p>
+      <p class="small">Можно выбрать готовую тему, а можно написать своё описание —
+         программа понимает обычные фразы, перевод на английский не нужен.</p>
+    </div>
+    <div class="card">
+      <h3>Где считаются картинки</h3>
+      <p>На вашем компьютере, на видеокарте. Ничего не отправляется в интернет,
+         аккаунт не нужен, подписка не нужна — картинки сразу ложатся в папку на диске.</p>
+      <p class="small">Интернет нужен только при первом запуске, чтобы скачать движок рисования
+         и модели. Дальше программа работает без интернета.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="gallery"><div class="wrap">
+  <h2>Примеры <small>Нарисовано этой программой — без обработки в фоторедакторах</small></h2>
+  <!-- THEMES-START -->
+<div class="masonry">
+  <figure><img src="img/th01.jpg" alt="Водопад в джунглях — обои, нарисованные программой" loading="lazy"><figcaption>Водопад в джунглях</figcaption></figure>
+  <figure><img src="img/th02.jpg" alt="Гейзер — обои, нарисованные программой" loading="lazy"><figcaption>Гейзер</figcaption></figure>
+  <figure><img src="img/th03.jpg" alt="Горы на рассвете — обои, нарисованные программой" loading="lazy"><figcaption>Горы на рассвете</figcaption></figure>
+  <figure><img src="img/th04.jpg" alt="Гроза над океаном — обои, нарисованные программой" loading="lazy"><figcaption>Гроза над океаном</figcaption></figure>
+  <figure><img src="img/th05.jpg" alt="Девушка в юкате и светлячки — обои, нарисованные программой" loading="lazy"><figcaption>Девушка в юкате и светлячки</figcaption></figure>
+  <figure><img src="img/th06.jpg" alt="Зима и лёд — обои, нарисованные программой" loading="lazy"><figcaption>Зима и лёд</figcaption></figure>
+  <figure><img src="img/th07.jpg" alt="Извержение вулкана — обои, нарисованные программой" loading="lazy"><figcaption>Извержение вулкана</figcaption></figure>
+  <figure><img src="img/th08.jpg" alt="Космос — обои, нарисованные программой" loading="lazy"><figcaption>Космос</figcaption></figure>
+  <figure><img src="img/th09.jpg" alt="Ледниковая пещера — обои, нарисованные программой" loading="lazy"><figcaption>Ледниковая пещера</figcaption></figure>
+  <figure><img src="img/th10.jpg" alt="Лентикулярные облака над вершиной — обои, нарисованные программой" loading="lazy"><figcaption>Лентикулярные облака над вершиной</figcaption></figure>
+  <figure><img src="img/th11.jpg" alt="Макро- Богомол на росистом листе — обои, нарисованные программой" loading="lazy"><figcaption>Макро- Богомол на росистом листе</figcaption></figure>
+  <figure><img src="img/th12.jpg" alt="Макро- Жук-носорог на коре — обои, нарисованные программой" loading="lazy"><figcaption>Макро- Жук-носорог на коре</figcaption></figure>
+  <figure><img src="img/th13.jpg" alt="Макро- Крыло бабочки-монарха — обои, нарисованные программой" loading="lazy"><figcaption>Макро- Крыло бабочки-монарха</figcaption></figure>
+  <figure><img src="img/th14.jpg" alt="Макро- Муравей с каплей воды — обои, нарисованные программой" loading="lazy"><figcaption>Макро- Муравей с каплей воды</figcaption></figure>
+  <figure><img src="img/th15.jpg" alt="Макро- Пчела в пыльце — обои, нарисованные программой" loading="lazy"><figcaption>Макро- Пчела в пыльце</figcaption></figure>
+  <figure><img src="img/th16.jpg" alt="Макро- Радужный жук-златка — обои, нарисованные программой" loading="lazy"><figcaption>Макро- Радужный жук-златка</figcaption></figure>
+  <figure><img src="img/th17.jpg" alt="Макро- Светлячок в темноте — обои, нарисованные программой" loading="lazy"><figcaption>Макро- Светлячок в темноте</figcaption></figure>
+  <figure><img src="img/th18.jpg" alt="Макро- Стрекоза и капли воды — обои, нарисованные программой" loading="lazy"><figcaption>Макро- Стрекоза и капли воды</figcaption></figure>
+  <figure><img src="img/th19.jpg" alt="Макро- Стрекоза на росистом листе — обои, нарисованные программой" loading="lazy"><figcaption>Макро- Стрекоза на росистом листе</figcaption></figure>
+  <figure><img src="img/th20.jpg" alt="Млечный путь — обои, нарисованные программой" loading="lazy"><figcaption>Млечный путь</figcaption></figure>
+  <figure><img src="img/th21.jpg" alt="Молния в горах — обои, нарисованные программой" loading="lazy"><figcaption>Молния в горах</figcaption></figure>
+  <figure><img src="img/th22.jpg" alt="Молния над ночным городом — обои, нарисованные программой" loading="lazy"><figcaption>Молния над ночным городом</figcaption></figure>
+  <figure><img src="img/th23.jpg" alt="Небо и закаты — обои, нарисованные программой" loading="lazy"><figcaption>Небо и закаты</figcaption></figure>
+  <figure><img src="img/th24.jpg" alt="Неон и киберпанк — обои, нарисованные программой" loading="lazy"><figcaption>Неон и киберпанк</figcaption></figure>
+  <figure><img src="img/th25.jpg" alt="Неоновый механический мотылёк — обои, нарисованные программой" loading="lazy"><figcaption>Неоновый механический мотылёк</figcaption></figure>
+  <figure><img src="img/th26.jpg" alt="Огромная волна — обои, нарисованные программой" loading="lazy"><figcaption>Огромная волна</figcaption></figure>
+  <figure><img src="img/th27.jpg" alt="Пустыня и дюны — обои, нарисованные программой" loading="lazy"><figcaption>Пустыня и дюны</figcaption></figure>
+  <figure><img src="img/th28.jpg" alt="Своя картинка (свой промпт) — обои, нарисованные программой" loading="lazy"><figcaption>Своя картинка (свой промпт)</figcaption></figure>
+  <figure><img src="img/th29.jpg" alt="Северное сияние — обои, нарисованные программой" loading="lazy"><figcaption>Северное сияние</figcaption></figure>
+  <figure><img src="img/th30.jpg" alt="Суперлуние над океаном — обои, нарисованные программой" loading="lazy"><figcaption>Суперлуние над океаном</figcaption></figure>
+  <figure><img src="img/th31.jpg" alt="Суперячейка над полем — обои, нарисованные программой" loading="lazy"><figcaption>Суперячейка над полем</figcaption></figure>
+</div>
+  <p class="cap">31 тем из каталога — по одному обою из каждой. Всё нарисовано программой в 4K, без обработки в фоторедакторах.</p>
+  <!-- THEMES-END -->
+
+  <div class="phones">
+    <img src="img/p1.jpg" alt="Дождливый вечер: неоновая улица — для телефона, 9:20">
+    <img src="img/p2.jpg" alt="Огромная волна у скал — для телефона, 9:16">
+    <img src="img/p3.jpg" alt="Млечный путь над дюнами — для телефона, 9:16">
+  </div>
+  <p class="cap">И для телефона: 1080×2400, 1170×2532, 1440×2560, 1440×3200, 1440×3240.</p>
+</div></section>
+
+<section id="shots"><div class="wrap">
+  <h2>Как выглядит программа <small>Тёмное окно, всё на русском</small></h2>
+  <div class="shots">
+    <figure>
+      <img src="scr-1.png" alt="Главное окно с темами" onerror="this.closest('figure').style.display='none'">
+      <figcaption>Главное окно: темы, размер, модель, промпт</figcaption>
+    </figure>
+    <figure>
+      <img src="scr-2.png" alt="Каталог моделей" onerror="this.closest('figure').style.display='none'">
+      <figcaption>Каталог моделей: что скачано, что можно скачать</figcaption>
+    </figure>
+    <figure>
+      <img src="scr-3.png" alt="Галерея готовых обоев" onerror="this.closest('figure').style.display='none'">
+      <figcaption>Галерея: готовые обои, избранное, поиск</figcaption>
+    </figure>
+    <figure>
+      <img src="scr-4.png" alt="Окно лицензии" onerror="this.closest('figure').style.display='none'">
+      <figcaption>Лицензия: пробные генерации, ключ, покупка</figcaption>
+    </figure>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Как это работает</h2>
+  <div class="steps">
+    <div class="step"><p><b>Выберите темы</b> — или напишите своё описание словами.
+      У каждой темы есть картинка-подсказка.</p></div>
+    <div class="step"><p><b>Нажмите «Нарисовать»</b> — программа подберёт модель под вашу
+      видеокарту, нарисует черновик и увеличит его до 4K.</p></div>
+    <div class="step"><p><b>Заберите файлы</b> — они лягут в папку по темам, с именем и
+      описанием промпта рядом.</p></div>
+  </div>
+</div></section>
+
+<section id="features"><div class="wrap">
+  <h2>Возможности</h2>
+  <div class="grid3">
+    <div class="card"><h3>300 готовых сюжетов</h3>
+      <p class="small">67 наборов тем с превью: грозы, водопады, северное сияние, киберпанк-города,
+         аниме, мультфильмы, макро, абстракция.</p></div>
+    <div class="card"><h3>Настоящее 4K</h3>
+      <p class="small">Второй проход и увеличение до 3840×2160: не растянутая картинка,
+         а дорисованные детали.</p></div>
+    <div class="card"><h3>Подбор модели</h3>
+      <p class="small">Для пейзажа, аниме и макро — разные модели. Программа подбирает
+         их сама и скачивает с прогрессом и проверкой файла.</p></div>
+    <div class="card"><h3>Пакетная работа</h3>
+      <p class="small">До 40 обоев на тему за один запуск. Можно поставить на ночь и утром
+         забрать готовую папку.</p></div>
+    <div class="card"><h3>«Своя картинка»</h3>
+      <p class="small">Разовая генерация по своему описанию: без темы, без настроек,
+         с полем для того, чего не должно быть на картинке.</p></div>
+    <div class="card"><h3>Галерея и избранное</h3>
+      <p class="small">Все нарисованные обои в одном окне, с поиском, избранным и подсказками
+         о промпте и модели.</p></div>
+  </div>
+</div></section>
+
+<section id="req"><div class="wrap">
+  <h2>Что нужно для работы</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Компьютер</h3>
+      <ul class="small">
+        <li>Windows 10 или 11, 64 бита</li>
+        <li>Видеокарта NVIDIA от 6 ГБ видеопамяти</li>
+        <li>или AMD Radeon RX 6000 / 7000 / 9000 со свежим драйвером Adrenalin
+            (для AMD — только Windows 11)</li>
+        <li>около 20 ГБ свободного места на диске</li>
+        <li>8 ГБ оперативной памяти и больше</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Первый запуск</h3>
+      <ul class="small">
+        <li>программа сама скачивает движок рисования — около 2 ГБ
+            (на диске 6–8 ГБ)</li>
+        <li>и модели — от 2 до 7 ГБ, каждая со своей лицензией</li>
+        <li>нужен интернет; дальше можно работать без него</li>
+        <li>отдельно ничего устанавливать не нужно</li>
+      </ul>
+      <p class="dim">На слабой видеокарте будет медленнее: 4K-обои на ноутбуке
+         с RTX 3060 считаются примерно 2,5–3 минуты.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="buy"><div class="wrap">
+  <h2>Сколько стоит</h2>
+  <div class="card price">
+    <div class="sum">990 ₽ <small>· ключ на 2 компьютера</small></div>
+    <p class="small">Сначала бесплатно: без ключа программа рисует 25 обоев — посмотрите темы,
+       каталог моделей и галерею, проверьте скорость на своём компьютере.</p>
+    <p class="small"><span class="tick">✓</span> ключ не привязан к сроку — купили и пользуетесь;
+       <span class="tick">✓</span> переносится на новый компьютер по коду компьютера;
+       <span class="tick">✓</span> обновления версии 1.x бесплатно.</p>
+    <p>Купить: напишите на <a href="mailto:walldusk@proton.me?subject=Walldusk%20-%20%D0%BF%D0%BE%D0%BA%D1%83%D0%BF%D0%BA%D0%B0%20%D0%BA%D0%BB%D1%8E%D1%87%D0%B0">walldusk@proton.me</a> —
+       я выставлю счёт и пришлю ключ. Имя при активации пишите то же, что при покупке.</p>
+    <!-- Когда появится страница товара (plati.market и т.п.), заменить абзац выше ссылкой на неё -->
+    <p class="dim">Чек по каждой продаже формируется в приложении «Мой налог» и приходит покупателю.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Частые вопросы</h2>
+
+  <details><summary>Программа действительно работает без интернета?</summary>
+    <p>Да, после первого запуска. При установке и первом запуске она скачивает движок и модели,
+       а дальше рисует локально: ни картинки, ни описания никуда не уходят.</p></details>
+
+  <details><summary>У меня ноутбук с 6 ГБ видеопамяти — потянет?</summary>
+    <p>Да, если это NVIDIA от 6 ГБ (проверено на RTX 3060 Laptop). Для AMD нужно 12 ГБ
+       и Windows 11 — движок на AMD тяжелее.</p></details>
+
+  <details><summary>Чем пробная версия отличается от полной?</summary>
+    <p>Только количеством: без ключа можно нарисовать 25 обоев. Все темы, модели, 4K,
+       галерея и «Своя картинка» доступны сразу.</p></details>
+
+  <details><summary>Купил новый компьютер — ключ придётся покупать заново?</summary>
+    <p>Нет. Один ключ работает на двух компьютерах, а при замене ПК его можно перенести:
+       в окне лицензии показан код компьютера, по нему ключ привязывается заново.</p></details>
+
+  <details><summary>Что с лицензиями движка и моделей?</summary>
+    <p>Программа использует открытый движок ComfyUI (© comfyanonymous, GPL-3.0) — он
+       скачивается при первом запуске и в комплект не входит. Модели рисования распространяются
+       по лицензиям их авторов; модели с запретом коммерческого использования помечены
+       в каталоге, чтобы вы не нарушили лицензию по незнанию.</p></details>
+
+  <details><summary>А если что-то не запустится?</summary>
+    <p>Напишите на <a href="mailto:walldusk@proton.me">walldusk@proton.me</a>, приложите
+       файл журнала из папки программы — отвечаю в течение суток.</p></details>
+</div></section>
+
+<footer><div class="wrap">
+  <p><b>Walldusk 1.3</b> · поддержка:
+     <a href="mailto:walldusk@proton.me">walldusk@proton.me</a></p>
+  <p>Продавец: Иваньков Павел Александрович, плательщик налога на профессиональный доход,
+     ИНН 252400390500. Чек по каждой продаже формируется в «Мой налог» и направляется покупателю.</p>
+  <p class="dim">Windows является товарным знаком Microsoft Corporation.
+     ComfyUI © comfyanonymous, лицензия GPL-3.0. Программа не связана с Microsoft.</p>
+</div></footer>
+
+<script>
+// Пока нет скриншотов (scr-1..4.png) — прячем весь блок и ссылку в меню, чтобы не было пустоты
+window.addEventListener('load', function () {
+  var sec = document.getElementById('shots');
+  if (!sec) return;
+  var any = Array.prototype.some.call(sec.querySelectorAll('img'), function (i) {
+    return i.naturalWidth > 0;
+  });
+  if (!any) {
+    sec.style.display = 'none';
+    var link = document.querySelector('.nav a[href="#shots"]');
+    if (link) link.style.display = 'none';
+  }
+});
+</script>
+</body>
+</html>
